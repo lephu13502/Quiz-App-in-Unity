@@ -10,18 +10,29 @@ public class QuestionDisplay : MonoBehaviour
     [SerializeField] private GameObject answerB;
     [SerializeField] private GameObject answerC;
     [SerializeField] private GameObject answerD;
-    [SerializeField] private static string newQuestion;
-    [SerializeField] private static string newA;
-    [SerializeField] private static string newB;
-    [SerializeField] private static string newC;
-    [SerializeField] private static string newD;
+    public static string newQuestion;
+    public static string newA;
+    public static string newB;
+    public static string newC;
+    public static string newD;
+    public static bool pleaseUpdate = false;
 
-    private void Start()
+    private void Update()
     {
-        screenQuestion.GetComponent<TextMeshProUGUI>().text = "HOW TO MAKE A QUIZ GAME APP FOR MOBILE & PC IN UNITY";
-        answerA.GetComponent<TextMeshProUGUI>().text = "A. Buy it";
-        answerB.GetComponent<TextMeshProUGUI>().text = "B. Learn on Youtube";
-        answerC.GetComponent<TextMeshProUGUI>().text = "C. Ask on Facebook";
-        answerD.GetComponent<TextMeshProUGUI>().text = "D. Don't do it";
+        if (pleaseUpdate == false)
+        {
+            pleaseUpdate = true;
+            StartCoroutine(PushTextOnScreen());
+        }
+    }
+
+    IEnumerator PushTextOnScreen()
+    {
+        yield return new WaitForSeconds(0.25f);
+        screenQuestion.GetComponent<TextMeshProUGUI>().text = newQuestion;
+        answerA.GetComponent<TextMeshProUGUI>().text = newA;
+        answerB.GetComponent<TextMeshProUGUI>().text = newB;
+        answerC.GetComponent<TextMeshProUGUI>().text = newC;
+        answerD.GetComponent<TextMeshProUGUI>().text = newD;
     }
 }
